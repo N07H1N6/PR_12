@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,45 +14,53 @@ namespace PR_12
 {
     class Program
     {
-        static string Reverse(string s1)//метод, принимающийаргумент string
+        static string Reverse(string s1)//метод, принимающий аргумент string
         {
             char[] chars = s1.ToCharArray();
             Array.Reverse(chars);
-            for(int i= 0;i<s1.Length;i++)
+            for (int i = 0; i < s1.Length; i++)
             {
                 Console.Write(chars[i]);
             }
             //Console.WriteLine(chars);
-            return new string (chars);
+            return new string(chars);
         }
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Практическая раабота №12");
             Console.WriteLine("Здравствуйте");
             try
             {
                 //Ввод данных
-                string s1;
+                string s1=null;
                 Console.Write("Введите слово:");
                 s1 = Console.ReadLine();
-                Console.WriteLine("Перевернутое значение:");
-                //вызов функции
-                string reverse = Reverse(s1);//вызов функции с указанием аргументов
-                Console.WriteLine("\nИсходное значение:");
-                Console.WriteLine(s1);
-
+                if (string.IsNullOrWhiteSpace(s1)) throw new Exception("Введена пустая строка");            
+                else
+                {
+                    Console.WriteLine("Перевернутое значение:");
+                    //вызов функции
+                    string reverse = Reverse(s1);//вызов функции с указанием аргументов
+                    Console.WriteLine("\nИсходное значение:");
+                    Console.WriteLine(s1);
+                }               
+                                         
             }
+            catch(FormatException fe)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ошибка :" + fe.Message);
+            }
+
             catch (Exception e)
             {
-                Console.WriteLine("Ошибка ввода данных:" + e.Message);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ошибка :" + e.Message);
             }
             Console.ReadKey();
 
         }
     }
 }
-
-
-    
-
 
